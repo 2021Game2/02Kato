@@ -8,7 +8,6 @@
 */
 class CScene {
 public:
-	CText mFont;
 	//virtual 仮想関数
 	//ポリモーフィズムの実装
 	//=0 純粋仮想関数の設定

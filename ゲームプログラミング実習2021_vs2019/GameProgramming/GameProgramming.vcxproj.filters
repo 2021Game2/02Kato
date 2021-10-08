@@ -16,6 +16,9 @@
     <Filter Include="ソース ファイル\Lib">
       <UniqueIdentifier>{2fe66eca-2cba-4dad-9537-41039b173937}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\One">
+      <UniqueIdentifier>{df128e88-857f-4d30-9e06-e424758308d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="CMyShader.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CFloor.cpp">
+      <Filter>ソース ファイル\One</Filter>
+    </ClCompile>
+    <ClCompile Include="CObstacle.cpp">
+      <Filter>ソース ファイル\One</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +247,12 @@
     </ClInclude>
     <ClInclude Include="CVertex.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CFloor.h">
+      <Filter>ソース ファイル\One</Filter>
+    </ClInclude>
+    <ClInclude Include="CObstacle.h">
+      <Filter>ソース ファイル\One</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
