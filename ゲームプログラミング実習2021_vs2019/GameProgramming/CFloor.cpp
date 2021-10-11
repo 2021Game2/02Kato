@@ -6,6 +6,6 @@ CFloor::CFloor()
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	CTransform::Update();
 
-	mModel.Load("Street environment_V01.obj", "Street environment_V01.mtl");
+	mModel.Load("Street environment_V02.obj", "Street environment_V02.mtl");
 	mpModel = &mModel;
 }
