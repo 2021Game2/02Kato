@@ -1,66 +1,110 @@
 #include "CXPlayer.h"
 #include "CKey.h"
+#include <math.h>
+#include "CInput.h"
+
+#define GRAVITY -0.03 //重力
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, nullptr, CVector(), 0.5f)
-	, mColSphereHead(this, nullptr, CVector(0.0f, 5.0f, -3.0f), 0.5f)
-	, mColSphereSword(this, nullptr, CVector(-10.0f, 10.0f, 50.0f), 0.3f)
+	:mHP(100), mJump(true)
 {
+	//起動時のマウスカーソルの座標を覚える
+	CInput::GetMousePos(&mMouseX, &mMouseY);
+
 	//タグにプレイヤーを設定します
 	mTag = EPLAYER;
-	mColSphereSword.mTag = CCollider::ESWORD;
 }
 
 void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
-	//合成行列の設定
-	mColSphereBody.mpMatrix = &mpCombinedMatrix[9];
-	//頭
-	mColSphereHead.mpMatrix = &mpCombinedMatrix[12];
-	//剣
-	mColSphereSword.mpMatrix = &mpCombinedMatrix[22];
-
 }
 
 void CXPlayer::Update()
 {
-	if (mAnimationIndex == 3)
+	CInput::GetMousePos(&mx, &my);
+	if (mx < mMouseX) 
 	{
-		if (mAnimationFrame >= mAnimationFrameSize)
+		//マウスの移動量の分だけ回転
+		mRotation.mY += (mMouseX - mx) / 6.0;
+	}
+	if (mMouseX < mx) 
+	{
+		//マウスの移動量の分だけ回転
+		mRotation.mY += (mMouseX - mx) / 6.0;
+	}
+	/*if (my < mMouseY)
+	{
+		//マウスの移動量の分だけ回転
+		mRotation.mX += (mMouseY - my) / 6.0;
+	}
+	if (mMouseY < my)
+	{
+		//マウスの移動量の分だけ回転
+		mRotation.mX += (mMouseY - my) / 6.0;
+	}*/
+
+	//前に移動
+	if (CKey::Push('W'))
+	{
+		mPosition += CVector(0.0f, 0.0f, -0.1f) * mMatrixRotate;
+
+		//走る
+		if (CKey::Push(VK_SHIFT)) 
 		{
-			ChangeAnimation(4, false, 30);
+			mPosition += CVector(0.0f, 0.0f, -0.03f) * mMatrixRotate;
 		}
 	}
-	else if (mAnimationIndex == 4)
+
+	//左に移動
+	if (CKey::Push('A'))
 	{
-		if (mAnimationFrame >= mAnimationFrameSize)
-		{
-			ChangeAnimation(0, true, 60);
-		}
+		mPosition += CVector(-0.1f, 0.0f, 0.0f) * mMatrixRotate;
 	}
-	else
+
+	//後ろに移動
+	if (CKey::Push('S'))
 	{
-		if (CKey::Push('A'))
-		{
-			mRotation.mY += 2.0f;
-		}
-		if (CKey::Push('D'))
-		{
-			mRotation.mY -= 2.0f;
-		}
-		if (CKey::Push(' '))
-		{
-			ChangeAnimation(3, true, 30);
-		}
-		else if (CKey::Push('W'))
-		{
-			ChangeAnimation(1, true, 60);
-			mPosition += CVector(0.0f, 0.0f, 0.1f) * mMatrixRotate;
-		}
-		else {
-			ChangeAnimation(0, true, 60);
-		}
+		mPosition += CVector(0.0f, 0.0f, 0.1f) * mMatrixRotate;
 	}
+
+	//右に移動
+	if (CKey::Push('D'))
+	{
+		mPosition += CVector(0.1f, 0.0f, 0.0f) * mMatrixRotate;
+	}
+
+	//ジャンプ
+	if (CKey::Once(' ') && mJump == true) 
+	{
+		mVec.mY = 0.5;
+		mJump = false;
+	}
+	//着地したら次のジャンプ可能
+	if (mPosition.mY <= 0)
+	{
+		if (mJump == true) {
+			mVec.mY = 0;
+		}
+		mJump = true;
+	}
+
+	//重力による降下
+	mPosition += mVec;
+
+	//重力
+	mVec.mY += GRAVITY;
+
+	//マウスカーソルを表示
+	if (CKey::Once(VK_ESCAPE))
+	{
+		ShowCursor(true);
+	}
+
 	CXCharacter::Update();
+
+	//以前のカーソル座標を新しい座標に更新
+	mMouseX = mx;
+	mMouseY = my;
+
 }

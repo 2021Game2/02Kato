@@ -7,10 +7,16 @@
 class CXPlayer : public CXCharacter
 {
 public:
-	//コライダの宣言
-	CCollider mColSphereBody;	//体
-	CCollider mColSphereHead;	//頭
-	CCollider mColSphereSword;	//剣
+	//プレイヤーのヒットポイント
+	int mHP;
+	//移動ベクトル
+	CVector mVec;
+
+	//起動時のマウスカーソルの座標を覚える
+	int mMouseX;
+	int mMouseY;
+	//マウスカーソルの座標を取得するための変数
+	int mx, my;
 
 	CXPlayer();
 
@@ -20,6 +26,11 @@ public:
 	void Init(CModelX* model);
 
 	void Update();
+
+private:
+	//ジャンプフラグ
+	bool mJump;
+
 };
 
 #endif
