@@ -12,11 +12,12 @@ public:
 	//移動ベクトル
 	CVector mVec;
 
-	//起動時のマウスカーソルの座標を覚える
-	int mMouseX;
-	int mMouseY;
-	//マウスカーソルの座標を取得するための変数
+	//ディスプレイの左上を原点として起動時のマウスカーソルの座標を覚える
+	int mMouseX, mMouseY;
+	//ディスプレイの左上を原点としてマウスカーソルの座標を取得するための変数
 	int mx, my;
+	//ウィンドウの左上を原点としたマウスカーソルの座標を取得するための変数
+	int mMouseXw, mMouseYw;
 
 	CXPlayer();
 

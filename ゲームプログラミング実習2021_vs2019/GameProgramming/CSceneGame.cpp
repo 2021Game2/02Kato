@@ -79,8 +79,7 @@ void CSceneGame::Update() {
 	CCollisionManager::Get()->Render();
 
 	//マウスカーソルを起動時の座標に移動
-	//CInput::SetMousePos(CXPlayer::mpPlayer->mMouseX, CXPlayer::mpPlayer->mMouseY);
-	CInput::SetMousePos(mPlayer.mx, mPlayer.my);
+	//CInput::SetMousePos(mPlayer.mx, mPlayer.my);
 
 	return;
 }
