@@ -22,6 +22,7 @@ public:
 		EENEMY,		//敵
 		EBULLETPLAYER,	//プレイヤー弾
 		EBULLETENEMY,	//敵弾
+		EFLOOR,     //床
 	};
 	ETag mTag;
 	CModel *mpModel; //モデルのポインタ

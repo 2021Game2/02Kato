@@ -8,4 +8,12 @@ CFloor::CFloor()
 
 	mModel.Load("Street environment_V02.obj", "Street environment_V02.mtl");
 	mpModel = &mModel;
+
+	CCharacter::mTag = EFLOOR;
+}
+
+void CFloor::Init()
+{
+	//モデルから三角コライダを生成
+	mColliderMesh.Set(this, &mMatrix, mpModel);
 }

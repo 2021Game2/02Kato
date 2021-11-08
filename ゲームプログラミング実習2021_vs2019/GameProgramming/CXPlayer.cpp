@@ -9,6 +9,9 @@
 
 CXPlayer::CXPlayer()
 	:mHP(100), mJump(true)
+	, mColSphere1(this, &mMatrix, mPosition+CVector(0.0f, 1.0f, 0.0f), 0.5f)
+	, mColSphere2(this, &mMatrix, mPosition, 0.5f)
+	, mColSphere3(this, &mMatrix, mPosition+CVector(0.0f, -1.0f, 0.0f), 0.5f)
 {
 	//起動時のマウスカーソルの座標を覚える
 	CInput::GetMousePos(&mMouseX, &mMouseY);
@@ -147,5 +150,46 @@ void CXPlayer::Update()
 		CInput::SetMousePos(mx, my - WINDOW_HEIGHT);
 	}
 
+	//Handgunクラスのアップデート
+	mHandgun.Update(mMatrix, mRotation);
+	mHandgun.Render();
+
+	CTransform::Update();
+
 	CXCharacter::Update();
+}
+
+//衝突判定
+//Collision(コライダ1,コライダ2)
+void CXPlayer::Collision(CCollider* m, CCollider* o)
+{
+	switch (o->mType)
+	{
+	//相手のコライダタイプが三角形の場合
+	case CCollider::ETRIANGLE:
+		//親クラスが床クラスの場合
+		if(o->mpParent->CCharacter::mTag == EFLOOR)
+		{
+			//調整値
+			CVector adjust;
+			//三角形コライダと球コライダの衝突判定
+			CCollider::CollisionTriangleSphere(o, m, &adjust);
+			//重ならない位置まで戻す
+			mPosition = mPosition + adjust;
+		}
+		break;
+	}
+}
+
+//衝突処理
+void CXPlayer::TaskCollision()
+{
+	//コライダの優先度変更
+	mColSphere1.ChangePriority();
+	mColSphere2.ChangePriority();
+	mColSphere3.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Get()->Collision(&mColSphere1, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mColSphere2, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mColSphere3, COLLISIONRANGE);
 }

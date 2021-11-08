@@ -31,6 +31,8 @@ void CSceneGame::Init() {
 
 void CSceneGame::Update() {
 
+	//マウスカーソルを非表示
+	ShowCursor(false);
 	//プレイヤークラスの更新
 	mPlayer.Update();
 	
@@ -67,9 +69,6 @@ void CSceneGame::Update() {
 
 	//行列設定
 	glMultMatrixf(Matrix.mF);
-
-	//マウスカーソルを非表示
-	ShowCursor(false);
 
 	//描画
 	mPlayer.Render();

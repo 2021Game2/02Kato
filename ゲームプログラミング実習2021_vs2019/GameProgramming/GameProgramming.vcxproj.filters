@@ -16,8 +16,17 @@
     <Filter Include="ソース ファイル\Lib">
       <UniqueIdentifier>{2fe66eca-2cba-4dad-9537-41039b173937}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\One">
+    <Filter Include="ソース ファイル\weapon">
+      <UniqueIdentifier>{12c4060d-ef0c-4fa7-99aa-397893a9bc69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1">
       <UniqueIdentifier>{df128e88-857f-4d30-9e06-e424758308d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\player">
+      <UniqueIdentifier>{ff9e49cd-1329-4192-917b-d13c9b1a969f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\enemy">
+      <UniqueIdentifier>{275c488b-774a-4987-b19e-de82f44cb7bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,19 +130,34 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CFloor.cpp">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
     </ClCompile>
     <ClCompile Include="CObstacle.cpp">
-      <Filter>ソース ファイル\One</Filter>
-    </ClCompile>
-    <ClCompile Include="CXPlayer.cpp">
-      <Filter>ソース ファイル\One</Filter>
-    </ClCompile>
-    <ClCompile Include="CXEnemy.cpp">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
     </ClCompile>
     <ClCompile Include="CInput.cpp">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
+    </ClCompile>
+    <ClCompile Include="CHandgun.cpp">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CSniperRifle.cpp">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CAssaultRifle.cpp">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CSubmachineGun.cpp">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CBomb.cpp">
+      <Filter>ソース ファイル\1</Filter>
+    </ClCompile>
+    <ClCompile Include="CXPlayer.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="CXEnemy.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,19 +270,34 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CFloor.h">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
     </ClInclude>
     <ClInclude Include="CObstacle.h">
-      <Filter>ソース ファイル\One</Filter>
-    </ClInclude>
-    <ClInclude Include="CXPlayer.h">
-      <Filter>ソース ファイル\One</Filter>
-    </ClInclude>
-    <ClInclude Include="CXEnemy.h">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
     </ClInclude>
     <ClInclude Include="CInput.h">
-      <Filter>ソース ファイル\One</Filter>
+      <Filter>ソース ファイル\1</Filter>
+    </ClInclude>
+    <ClInclude Include="CHandgun.h">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CSniperRifle.h">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CAssaultRifle.h">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CSubmachineGun.h">
+      <Filter>ソース ファイル\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CBomb.h">
+      <Filter>ソース ファイル\1</Filter>
+    </ClInclude>
+    <ClInclude Include="CXEnemy.h">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CXPlayer.h">
+      <Filter>ソース ファイル\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

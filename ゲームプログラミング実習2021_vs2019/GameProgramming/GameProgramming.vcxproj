@@ -85,7 +85,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CAssaultRifle.cpp" />
     <ClCompile Include="CBillBoard.cpp" />
+    <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
@@ -98,6 +100,7 @@
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
     <ClCompile Include="CFloor.cpp" />
+    <ClCompile Include="CHandgun.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -111,7 +114,9 @@
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CSniperRifle.cpp" />
     <ClCompile Include="CSound.cpp" />
+    <ClCompile Include="CSubmachineGun.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
     <ClCompile Include="CText.cpp" />
     <ClCompile Include="CTexture.cpp" />
@@ -125,7 +130,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAssaultRifle.h" />
     <ClInclude Include="CBillBoard.h" />
+    <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
@@ -138,6 +145,7 @@
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CEnemy2.h" />
     <ClInclude Include="CFloor.h" />
+    <ClInclude Include="CHandgun.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMaterial.h" />
@@ -152,7 +160,9 @@
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CSniperRifle.h" />
     <ClInclude Include="CSound.h" />
+    <ClInclude Include="CSubmachineGun.h" />
     <ClInclude Include="CTask.h" />
     <ClInclude Include="CTaskManager.h" />
     <ClInclude Include="CText.h" />
