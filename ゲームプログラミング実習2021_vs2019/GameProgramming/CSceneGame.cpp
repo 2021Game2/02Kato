@@ -37,7 +37,8 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	
 	//衝突処理
-	CCollisionManager::Get()->Collision();
+	//CCollisionManager::Get()->Collision();
+	CTaskManager::Get()->TaskCollision();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向

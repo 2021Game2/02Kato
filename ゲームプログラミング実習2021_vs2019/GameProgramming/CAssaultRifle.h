@@ -5,8 +5,9 @@
 
 class CAssaultRifle :public CCharacter 
 {
+	CModel mpModel;
 public:
-
+	CAssaultRifle();
 };
 
 #endif

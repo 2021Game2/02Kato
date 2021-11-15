@@ -25,6 +25,14 @@ public:
 		EFLOOR,     //床
 	};
 	ETag mTag;
+	enum EWeaponTag
+	{
+		EHANDGUN,       //ハンドガン
+		EASSAULTRIFLE,  //アサルトライフル
+		ESNIPERRIFLE,   //スナイパーライフル
+		ESUBMACHINEGUN, //サブマシンガン
+	};
+	EWeaponTag mWeaponTag;
 	CModel *mpModel; //モデルのポインタ
 	//描画処理
 	void Render();

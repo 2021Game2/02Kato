@@ -2,14 +2,15 @@
 
 CFloor::CFloor()
 {
-	mPosition = CVector(0.0f, -1.2f, 0.0f);
-	mScale = CVector(1.0f, 1.0f, 1.0f);
+	mPosition = CVector(0.0f, -1.0f, 0.0f);
+	mScale = CVector(50.0f, 0.1f, 50.0f);
 	CTransform::Update();
 
-	mModel.Load("Street environment_V02.obj", "Street environment_V02.mtl");
+	mModel.Load("cube.obj", "cube.mtl");
 	mpModel = &mModel;
 
 	CCharacter::mTag = EFLOOR;
+	Init();
 }
 
 void CFloor::Init()

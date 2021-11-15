@@ -3,12 +3,13 @@
 #include <math.h>
 #include "CInput.h"
 
-#define GRAVITY -0.03 //重力
+#define GRAVITY -0.005 //重力
+#define JUMPPOWER 0.5 //ジャンプ力
 #define WINDOW_WIDTH 800 //ウィンドウの横の長さ
 #define WINDOW_HEIGHT 600 //ウィンドウの縦の長さ
 
 CXPlayer::CXPlayer()
-	:mHP(100), mJump(true)
+	:mHP(100), mJump(true),mLanding(false),mMouseSensitivity(6)
 	, mColSphere1(this, &mMatrix, mPosition+CVector(0.0f, 1.0f, 0.0f), 0.5f)
 	, mColSphere2(this, &mMatrix, mPosition, 0.5f)
 	, mColSphere3(this, &mMatrix, mPosition+CVector(0.0f, -1.0f, 0.0f), 0.5f)
@@ -27,16 +28,30 @@ void CXPlayer::Init(CModelX* model)
 
 void CXPlayer::Update()
 {
+	//マウス感度を上げる
+	if (CKey::Push('Y'))
+	{
+		if (mMouseSensitivity > 0)
+		{
+			mMouseSensitivity -= 0.1f;
+		}
+	}
+	//マウス感度を下げる
+	if (CKey::Push('H'))
+	{
+		mMouseSensitivity += 0.1f;
+	}
+
 	CInput::GetMousePos(&mx, &my);
 	if (mx < mMouseX) 
 	{
 		//マウスの移動量の分だけ回転
-		mRotation.mY += (mMouseX - mx) / 6.0;
+		mRotation.mY += (mMouseX - mx) / mMouseSensitivity;
 	}
 	if (mMouseX < mx) 
 	{
 		//マウスの移動量の分だけ回転
-		mRotation.mY += (mMouseX - mx) / 6.0;
+		mRotation.mY += (mMouseX - mx) / mMouseSensitivity;
 	}
 	//カメラの向きが真上でなければ
 	if (mRotation.mX<90)
@@ -44,7 +59,7 @@ void CXPlayer::Update()
 		if (my < mMouseY)
 		{
 			//マウスの移動量の分だけ回転
-			mRotation.mX += (mMouseY - my) / 6.0;
+			mRotation.mX += (mMouseY - my) / mMouseSensitivity;
 		}
 	}
 	//カメラの向きが真下でなければ
@@ -53,8 +68,45 @@ void CXPlayer::Update()
 		if (mMouseY < my)
 		{
 			//マウスの移動量の分だけ回転
-			mRotation.mX += (mMouseY - my) / 6.0;
+			mRotation.mX += (mMouseY - my) / mMouseSensitivity;
 		}
+	}
+
+	//以前のカーソル座標を新しい座標に更新
+	mMouseX = mx;
+	mMouseY = my;
+
+	//カーソルがウィンドウの外に出たらウィンドウ内にカーソルを戻す
+	CInput::GetMousePosW(&mMouseXw, &mMouseYw);
+	//ウィンドウの右端よりカーソルが右に出たらウィンドウ内にカーソルを戻す
+	if (mMouseXw > WINDOW_WIDTH)
+	{
+		mMouseX -= WINDOW_WIDTH;
+		CInput::SetMousePos(mx - WINDOW_WIDTH, my);
+	}
+	//ウィンドウの左端よりカーソルが左に出たらウィンドウ内にカーソルを戻す
+	if (mMouseXw < 0)
+	{
+		mMouseX += WINDOW_WIDTH;
+		CInput::SetMousePos(mx + WINDOW_WIDTH, my);
+	}
+	//ウィンドウの上端よりカーソルが上に出たらウィンドウ内にカーソルを戻す
+	if (mMouseYw < 0)
+	{
+		mMouseY += WINDOW_HEIGHT;
+		CInput::SetMousePos(mx, my + WINDOW_HEIGHT);
+	}
+	//ウィンドウの下端よりカーソルが下に出たらウィンドウ内にカーソルを戻す
+	if (mMouseYw > WINDOW_HEIGHT)
+	{
+		mMouseY -= WINDOW_HEIGHT;
+		CInput::SetMousePos(mx, my - WINDOW_HEIGHT);
+	}
+
+	//マウスカーソルを表示
+	if (CKey::Once(VK_ESCAPE))
+	{
+		ShowCursor(true);
 	}
 
 	//前に移動
@@ -90,71 +142,45 @@ void CXPlayer::Update()
 	//ジャンプ
 	if (CKey::Once(' ') && mJump == true) 
 	{
-		mVec.mY = 0.5;
+		mVec.mY = JUMPPOWER;
 		mJump = false;
 	}
 	//着地したら次のジャンプ可能
-	if (mPosition.mY <= 0)
+	if (mLanding == true)
 	{
-		if (mJump == true) {
-			mVec.mY = 0;
-		}
 		mJump = true;
+		mVec.mY = 0;
 	}
-
-	//重力による降下
-	mPosition += mVec;
 
 	//重力
 	mVec.mY += GRAVITY;
+
+	//重力による降下
+	mPosition += mVec;
 
 	//HPが0以下になるとプレイヤーは消える
 	if (mHP <= 0) {
 		delete this;
 	}
 
-	//マウスカーソルを表示
-	if (CKey::Once(VK_ESCAPE))
+	//使っている武器のUpdateとRenderをよぶ
+	if (mWeaponTag == EHANDGUN)
 	{
-		ShowCursor(true);
+		mHandgun.Update(mMatrix, mRotation);
+		mHandgun.Render();
 	}
+	if (mWeaponTag == EASSAULTRIFLE)
+	{
 
-	//以前のカーソル座標を新しい座標に更新
-	mMouseX = mx;
-	mMouseY = my;
+	}
+	if (mWeaponTag == ESNIPERRIFLE)
+	{
 
-	//カーソルがウィンドウの外に出たらウィンドウ内にカーソルを戻す
-	CInput::GetMousePosW(&mMouseXw, &mMouseYw);
-	//ウィンドウの右端よりカーソルが右に出たらウィンドウ内にカーソルを戻す
-	if (mMouseXw > WINDOW_WIDTH)
-	{
-		mMouseX -= WINDOW_WIDTH;
-		CInput::SetMousePos(mx - WINDOW_WIDTH, my);
 	}
-	//ウィンドウの左端よりカーソルが左に出たらウィンドウ内にカーソルを戻す
-	if (mMouseXw < 0)
+	if (mWeaponTag == ESUBMACHINEGUN)
 	{
-		mMouseX += WINDOW_WIDTH;
-		CInput::SetMousePos(mx + WINDOW_WIDTH, my);
-	}
-	//ウィンドウの上端よりカーソルが上に出たらウィンドウ内にカーソルを戻す
-	if (mMouseYw < 0)
-	{
-		mMouseY += WINDOW_HEIGHT;
-		CInput::SetMousePos(mx, my + WINDOW_HEIGHT);
-	}
-	//ウィンドウの下端よりカーソルが下に出たらウィンドウ内にカーソルを戻す
-	if (mMouseYw > WINDOW_HEIGHT)
-	{
-		mMouseY -= WINDOW_HEIGHT;
-		CInput::SetMousePos(mx, my - WINDOW_HEIGHT);
-	}
 
-	//Handgunクラスのアップデート
-	mHandgun.Update(mMatrix, mRotation);
-	mHandgun.Render();
-
-	CTransform::Update();
+	}
 
 	CXCharacter::Update();
 }
@@ -170,12 +196,19 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		//親クラスが床クラスの場合
 		if(o->mpParent->CCharacter::mTag == EFLOOR)
 		{
+			//着地フラグをtrueにする
+			mLanding = true;
 			//調整値
 			CVector adjust;
 			//三角形コライダと球コライダの衝突判定
 			CCollider::CollisionTriangleSphere(o, m, &adjust);
 			//重ならない位置まで戻す
-			mPosition = mPosition + adjust;
+			mPosition = mPosition - adjust * -1;
+			//調整値が0なら衝突してないので、着地フラグをfalseにする
+			if (adjust.mY == 0.0f)
+			{
+				mLanding = false;
+			}
 		}
 		break;
 	}

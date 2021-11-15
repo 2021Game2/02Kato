@@ -21,6 +21,8 @@ public:
 	int mx, my;
 	//ウィンドウの左上を原点としたマウスカーソルの座標を取得するための変数
 	int mMouseXw, mMouseYw;
+	//マウス感度
+	int mMouseSensitivity;
 
 	//ハンドガンのインスタンス
 	CHandgun mHandgun;
@@ -45,8 +47,10 @@ public:
 	void TaskCollision();
 
 private:
-	//ジャンプフラグ
+	//ジャンプフラグ　ジャンプ可能:true ジャンプ不可:false
 	bool mJump;
+	//着地フラグ 着地:true 空中:false
+	bool mLanding;
 
 };
 
