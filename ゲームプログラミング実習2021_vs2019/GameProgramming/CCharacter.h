@@ -17,16 +17,18 @@ class CCharacter : public CTransform ,public CTask {
 public:
 	enum ETag 
 	{
-		EZERO,		//初期値
-		EPLAYER,	//プレイヤー
-		EENEMY,		//敵
+		EZERO,		    //初期値
+		EPLAYER,	    //プレイヤー
+		EENEMY,		    //敵
 		EBULLETPLAYER,	//プレイヤー弾
 		EBULLETENEMY,	//敵弾
-		EFLOOR,     //床
+		EFLOOR,         //床
+		EBOMB,          //爆弾
 	};
 	ETag mTag;
 	enum EWeaponTag
 	{
+		EWEAPONZERO,    //初期値
 		EHANDGUN,       //ハンドガン
 		EASSAULTRIFLE,  //アサルトライフル
 		ESNIPERRIFLE,   //スナイパーライフル

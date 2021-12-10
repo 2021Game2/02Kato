@@ -6,6 +6,7 @@
 class CSubmachineGun :public CCharacter
 {
 public:
+
 	CSubmachineGun();
 };
 

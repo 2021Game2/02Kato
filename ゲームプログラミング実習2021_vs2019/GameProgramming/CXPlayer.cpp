@@ -10,9 +10,9 @@
 
 CXPlayer::CXPlayer()
 	:mHP(100), mJump(true),mLanding(false),mMouseSensitivity(6)
-	, mColSphere1(this, &mMatrix, mPosition+CVector(0.0f, 1.0f, 0.0f), 0.5f)
+	, mColSphere1(this, &mMatrix, mPosition + CVector(0.0f, 1.0f, 0.0f), 0.5f)
 	, mColSphere2(this, &mMatrix, mPosition, 0.5f)
-	, mColSphere3(this, &mMatrix, mPosition+CVector(0.0f, -1.0f, 0.0f), 0.5f)
+	, mColSphere3(this, &mMatrix, mPosition + CVector(0.0f, -1.0f, 0.0f), 0.5f)
 {
 	//起動時のマウスカーソルの座標を覚える
 	CInput::GetMousePos(&mMouseX, &mMouseY);
@@ -163,25 +163,25 @@ void CXPlayer::Update()
 		delete this;
 	}
 
-	//使っている武器のUpdateとRenderをよぶ
-	if (mWeaponTag == EHANDGUN)
+	mWeaponTag = EHANDGUN;
+	//使っている武器のUpdateをよぶ
+	if (CCharacter::mWeaponTag == EHANDGUN)
 	{
 		mHandgun.Update(mMatrix, mRotation);
-		mHandgun.Render();
 	}
-	if (mWeaponTag == EASSAULTRIFLE)
+	if (CCharacter::mWeaponTag == EASSAULTRIFLE)
 	{
 
 	}
-	if (mWeaponTag == ESNIPERRIFLE)
+	if (CCharacter::mWeaponTag == ESNIPERRIFLE)
 	{
 
 	}
-	if (mWeaponTag == ESUBMACHINEGUN)
+	if (CCharacter::mWeaponTag == ESUBMACHINEGUN)
 	{
 
 	}
-
+	mPosition=CVector(0.0f, 2.0f, 0.0f);
 	CXCharacter::Update();
 }
 
@@ -209,6 +209,24 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			{
 				mLanding = false;
 			}
+		}
+		break;
+		//相手のコライダが球の場合
+	case CCollider::ESPHERE:
+		//相手の親クラスが敵の弾の場合
+		if (o->mpParent->CCharacter::mTag == EBULLETENEMY)
+		{
+			
+		}
+		//相手の親が爆風の場合
+		if (o->mpParent->CCharacter::mTag == EBOMB)
+		{
+			//衝突している場合
+			/*m->CCollider::Collision(m, o)
+			{
+				//HPを0にする
+				mHP = 0;
+			}*/
 		}
 		break;
 	}

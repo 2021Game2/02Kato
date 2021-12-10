@@ -14,6 +14,7 @@ public:
 	CColliderMesh mColliderMesh;
 
 	void Init();
+
 };
 
 #endif

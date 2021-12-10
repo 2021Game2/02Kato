@@ -1,13 +1,17 @@
 #ifndef CASSAULTRIFLE_H
 #define CASSAULTLIFLE_H
 
-#include "CCharacter.h"
+#include "CGun.h"
 
-class CAssaultRifle :public CCharacter 
+class CAssaultRifle :public CGun
 {
-	CModel mpModel;
+	CModel mModel;
 public:
+
 	CAssaultRifle();
+
+	void Update(CMatrix matrix, CVector rotation);
+
 };
 
 #endif

@@ -6,6 +6,7 @@
 class CSniperRifle :public CCharacter
 {
 public:
+
 	CSniperRifle();
 };
 

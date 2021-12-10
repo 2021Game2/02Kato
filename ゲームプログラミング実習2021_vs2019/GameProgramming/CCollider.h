@@ -14,6 +14,7 @@ public:
 	{
 		EBODY,		//本体
 		ESEARCH,	//サーチ用
+		EEXPLOSION, //爆風用
 	};
 	ETag mTag;
 	//コライダタイプ

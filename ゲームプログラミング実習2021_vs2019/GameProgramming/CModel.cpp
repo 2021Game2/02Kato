@@ -94,10 +94,12 @@ void CModel::Load(char *obj, char *mtl) {
 	//ファイルの最後になるとNULLを返す
 	while (fgets(buf, sizeof(buf), fp) != NULL) {
 		//データを分割する
-		char str[4][64] = { "", "", "", "" };
+		char str[5][64] = { "", "", "", "",""};
 		//文字列からデータを4つ変数へ代入する
 		//sscanf(文字列, 変換指定子, 変数)
 		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		//分割した文字列の個数を調べる為に、変数numを作成し、sscanfの戻り値を代入
+		int num = sscanf(buf, "%s %s %s %s %s", str[0], str[1], str[2], str[3], str[4]);
 		//文字列の比較
 		//strcmp(文字列1, 文字列2)
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
@@ -130,6 +132,20 @@ void CModel::Load(char *obj, char *mtl) {
 				t.mMaterialIdx = idx;
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
+				//4角ポリゴンであれば2つ目の三角形の生成
+				if (num == 5)
+				{
+					sscanf(str[4], "%d//%d", &v[1], &n[1]);
+					//三角形作成
+					CTriangle t;
+					t.SetVertex(vertex[v[0] - 1], vertex[v[2] - 1], vertex[v[1] - 1]);
+					t.SetNormal(normal[n[0] - 1], normal[n[2] - 1], normal[n[1] - 1]);
+					//マテリアル番号の設定
+					t.mMaterialIdx = idx;
+					//可変長配列mTrianglesに三角形を追加
+					mTriangles.push_back(t);
+				}
+
 			}
 			else {
 				//テクスチャマッピング有り
@@ -150,6 +166,24 @@ void CModel::Load(char *obj, char *mtl) {
 				t.mMaterialIdx = idx;
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
+				//4角ポリゴンであれば2つ目の三角形の生成を追加
+				if (num == 5)
+				{
+					sscanf(str[4], "%d/%d/%d", &v[1], &u[1], &n[1]);
+					//三角形作成
+					CTriangle t;
+					t.SetVertex(vertex[v[0] - 1], vertex[v[2] - 1], vertex[v[1] - 1]);
+					t.SetNormal(normal[n[0] - 1], normal[n[2] - 1], normal[n[1] - 1]);
+					//テクスチャマッピングの設定
+					t.mUv[0] = uv[u[0] - 1];
+					t.mUv[1] = uv[u[2] - 1];
+					t.mUv[2] = uv[u[1] - 1];
+					//マテリアル番号の設定
+					t.mMaterialIdx = idx;
+					//可変長配列mTrianglesに三角形を追加
+					mTriangles.push_back(t);
+				}
+
 			}
 		}
 		//先頭がusemtlの時、マテリアルインデックスを取得する

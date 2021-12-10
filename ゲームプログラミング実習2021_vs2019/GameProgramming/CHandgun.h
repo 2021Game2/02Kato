@@ -11,7 +11,7 @@ public:
 	int mMagazine;
 	//予備の残弾数
 	int mRemainingBullet;
-	//リロードフラグ
+	//リロードフラグ リロード中
 	bool mReload;
 	//リロード時間
 	int mReloadTime;

@@ -6,10 +6,12 @@
 #define RELOAD 120 //リロードにかかる時間(2秒)
 
 CHandgun::CHandgun()
-:mMagazine(9),mRemainingBullet(45),mReload(false),mReloadTime(RELOAD)
+:mMagazine(MAGAZINE),mRemainingBullet(45),mReload(false)
+,mReloadTime(RELOAD)
 {
-	mPosition = CVector(0.0f, 3.0f, 0.0f);
+	mPosition = mPosition+CVector(2.0f, -1.0f, -1.5f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
+	mRotation = CVector(0.0f, 0.0f, 0.0f);
 	CTransform::Update();
 
 	mModel.Load("Handgun.obj", "Handgun.mtl");
@@ -19,18 +21,43 @@ CHandgun::CHandgun()
 //プレイヤーの位置と回転が引数のUpdate関数
 void CHandgun::Update(CMatrix matrix,CVector rotation)
 {
-	mMatrix = matrix;
-	mRotation = rotation;
+	//
+	mRotation = CVector(-2.0f, 80.0f, 0.0f) + rotation;
 	//プレイヤーの手元に移動
-	mPosition = CVector(1.0f, 1.0f, -1.0f) * mMatrix;
+	mPosition = CVector(1.0f, -1.0f, -2.0f) * matrix;
 	//マガジンに弾が入っているならマウスの左クリック入力で弾発射
-	if (CKey::Once(VK_LBUTTON)&&mMagazine>0) 
+	if (CKey::Push(VK_LBUTTON) && mMagazine>0)
 	{
 		CBullet* bullet = new CBullet();
 		bullet->Set(0.1f, 1.5f);
-		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-		bullet->mRotation = mRotation;
-		bullet->Update();
+		bullet->mPosition = CVector(0.0f, 1.0f, 0.0f) * mMatrix;
+		bullet->mRotation = rotation;
+	}
+	
+	//位置調整用の視点操作
+	if (CKey::Push('Z'))
+	{
+		mRotation += CVector(1.0f, 0.0f, 0.0f);
+	}
+	if (CKey::Push('X'))
+	{
+		mRotation += CVector(-1.0f, 0.0f, 0.0f);
+	}
+	if (CKey::Push('C'))
+	{
+		mRotation += CVector(0.0f, 1.0f, 0.0f);
+	}
+	if (CKey::Push('V'))
+	{
+		mRotation += CVector(0.0f, -1.0f, 0.0f);
+	}
+	if (CKey::Push('B'))
+	{
+		mRotation += CVector(0.0f, 0.0f, 1.0f);
+	}
+	if (CKey::Push('N'))
+	{
+		mRotation += CVector(0.0f, 0.0f, -1.0f);
 	}
 
 	//リロード中

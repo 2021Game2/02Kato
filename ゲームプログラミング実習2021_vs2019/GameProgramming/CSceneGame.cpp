@@ -33,8 +33,7 @@ void CSceneGame::Update() {
 
 	//マウスカーソルを非表示
 	ShowCursor(false);
-	//プレイヤークラスの更新
-	mPlayer.Update();
+	CTaskManager::Get()->Update();
 	
 	//衝突処理
 	//CCollisionManager::Get()->Collision();
@@ -48,6 +47,17 @@ void CSceneGame::Update() {
 	c = mPlayer.mPosition + CVector(0.0f, 0.0f, -1.0f) * mPlayer.mMatrixRotate;
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
+
+	/*e = mPlayer.mHandgun.mPosition + CVector(0.0f, 0.0f, 1.0f);
+	c = mPlayer.mHandgun.mPosition;
+	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mHandgun.mMatrixRotate;
+	*/
+
+	/*e = CVector(0.0f, 4.0f, 5.0f);
+	c = mPlayer.mPosition;
+	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
+	*/
+	
 
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
@@ -72,14 +82,10 @@ void CSceneGame::Update() {
 	glMultMatrixf(Matrix.mF);
 
 	//描画
-	mPlayer.Render();
-	mFloor.Render();
+	CTaskManager::Get()->Render();
 
 	//コライダの描画
 	CCollisionManager::Get()->Render();
-
-	//マウスカーソルを起動時の座標に移動
-	//CInput::SetMousePos(mPlayer.mx, mPlayer.my);
 
 	return;
 }

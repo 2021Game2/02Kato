@@ -4,3 +4,4 @@ CSniperRifle::CSniperRifle()
 {
 
 }
+

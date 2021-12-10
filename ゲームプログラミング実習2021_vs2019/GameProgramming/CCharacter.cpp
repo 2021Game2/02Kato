@@ -13,7 +13,7 @@ CCharacter::~CCharacter() {
 }
 
 CCharacter::CCharacter()
-:mTag(EZERO)
+:mTag(EZERO),mWeaponTag(EWEAPONZERO)
 {
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);

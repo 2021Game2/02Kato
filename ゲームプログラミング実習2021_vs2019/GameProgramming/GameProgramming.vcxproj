@@ -100,6 +100,7 @@
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
     <ClCompile Include="CFloor.cpp" />
+    <ClCompile Include="CGun.cpp" />
     <ClCompile Include="CHandgun.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CKey.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CEnemy2.h" />
     <ClInclude Include="CFloor.h" />
+    <ClInclude Include="CGun.h" />
     <ClInclude Include="CHandgun.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CKey.h" />
