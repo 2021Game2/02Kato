@@ -16,21 +16,7 @@
 
 CMatrix Matrix;
 
-CSceneGame::~CSceneGame() {
-
-}
-
-void CSceneGame::Init() {
-
-	CRes::sModelX.Load(MODEL_FILE);
-	//キャラクターにモデルを設定
-	mPlayer.Init(&CRes::sModelX);
-
-}
-
-
 void CSceneGame::Update() {
-
 	//マウスカーソルを非表示
 	ShowCursor(false);
 	CTaskManager::Get()->Update();
@@ -44,7 +30,7 @@ void CSceneGame::Update() {
 	//視点を求める
 	e = mPlayer.mPosition;
 	//注視点を求める
-	c = mPlayer.mPosition + CVector(0.0f, 0.0f, -1.0f) * mPlayer.mMatrixRotate;
+	c = mPlayer.mPosition + CVector(0.0f, 0.0f, 1.0f) * mPlayer.mMatrixRotate;
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
 

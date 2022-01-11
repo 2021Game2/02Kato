@@ -9,10 +9,12 @@ CHandgun::CHandgun()
 :mMagazine(MAGAZINE),mRemainingBullet(45),mReload(false)
 ,mReloadTime(RELOAD)
 {
-	mPosition = mPosition+CVector(2.0f, -1.0f, -1.5f);
+	mPosition = mPosition+CVector(-1.0f, -1.0f, 1.5f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
-	mRotation = CVector(0.0f, 0.0f, 0.0f);
+	mRotation = CVector(-2.0f, 4.0f, 0.0f);
 	CTransform::Update();
+	//行列を退避
+	mLocalMatrix = mMatrix;
 
 	mModel.Load("Handgun.obj", "Handgun.mtl");
 	mpModel = &mModel;
@@ -21,16 +23,15 @@ CHandgun::CHandgun()
 //プレイヤーの位置と回転が引数のUpdate関数
 void CHandgun::Update(CMatrix matrix,CVector rotation)
 {
-	//
-	mRotation = CVector(-2.0f, 80.0f, 0.0f) + rotation;
-	//プレイヤーの手元に移動
-	mPosition = CVector(1.0f, -1.0f, -2.0f) * matrix;
+	//武器を画面外から画面内の指定の位置に来るまで上昇
+    
+
 	//マガジンに弾が入っているならマウスの左クリック入力で弾発射
-	if (CKey::Push(VK_LBUTTON) && mMagazine>0)
+	if (CKey::Once(VK_LBUTTON) && mMagazine>0)
 	{
 		CBullet* bullet = new CBullet();
 		bullet->Set(0.1f, 1.5f);
-		bullet->mPosition = CVector(0.0f, 1.0f, 0.0f) * mMatrix;
+		bullet->mPosition = CVector(0.0f, 0.5f, 2.0f) * mMatrix;
 		bullet->mRotation = rotation;
 	}
 	
@@ -63,13 +64,13 @@ void CHandgun::Update(CMatrix matrix,CVector rotation)
 	//リロード中
 	if (mReload == true)
 	{
+		mReloadTime--;
 		//リロードが完了したらリロードフラグをfalseにする
 		if (mReloadTime <= 0)
 		{
 			mReload = false;
 			mReloadTime = RELOAD;
 		}
-		mReloadTime--;
 	}
 
 	//リロード中でなければリロードを始める
@@ -83,6 +84,5 @@ void CHandgun::Update(CMatrix matrix,CVector rotation)
 		mMagazine += i;
 	}
 
-	CTransform::Update();
-
+	mMatrix = mLocalMatrix * matrix;
 }

@@ -15,6 +15,8 @@ public:
 	bool mReload;
 	//リロード時間
 	int mReloadTime;
+	//行列退避用
+	CMatrix mLocalMatrix;
 
 	CHandgun();
 

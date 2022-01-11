@@ -3,6 +3,7 @@
 #include "CScene.h"
 #include "CXPlayer.h"
 #include "CFloor.h"
+#include "CRes.h"
 
 /*
 ゲームのシーン
@@ -14,9 +15,17 @@ public:
 	//床のインスタンス
 	CFloor mFloor;
 
-	~CSceneGame();
+	~CSceneGame() {
+
+	}
 	//初期化処理のオーバーライド
-	void Init();
+	void Init() {
+
+		CRes::sModelX.Load(MODEL_FILE);
+		//キャラクターにモデルを設定
+		mPlayer.Init(&CRes::sModelX);
+
+	}
 	//更新処理のオーバーライド
 	void Update();
 

@@ -428,13 +428,13 @@ CSkinWeights::CSkinWeights(CModelX* model)
 	}
 	model->GetToken();	// }
 }
-CAnimationSet::CAnimationSet()
-	:mpName(nullptr)
-{
-}
 /*
 CAnimationSet
 */
+inline CAnimationSet::CAnimationSet()
+	:mpName(nullptr)
+{
+}
 CAnimationSet::CAnimationSet(CModelX* model)
 	: mpName(nullptr)
 	, mTime(0)
@@ -443,7 +443,7 @@ CAnimationSet::CAnimationSet(CModelX* model)
 {
 	model->mAnimationSet.push_back(this);
 	model->GetToken();	// Animation Name
-	//アニメーションセット名を退避
+						//アニメーションセット名を退避
 	mpName = new char[strlen(model->mToken) + 1];
 	strcpy(mpName, model->mToken);
 	model->GetToken(); // {
@@ -451,7 +451,7 @@ CAnimationSet::CAnimationSet(CModelX* model)
 		model->GetToken(); // } or Animation
 		if (strchr(model->mToken, '}'))break;
 		if (strcmp(model->mToken, "Animation") == 0) {
-			 //Animation要素読み込み
+			//Animation要素読み込み
 			mAnimation.push_back(new CAnimation(model));
 		}
 	}

@@ -24,6 +24,7 @@ CXPlayer::CXPlayer()
 void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
+	Sleep(2000);
 }
 
 void CXPlayer::Update()
@@ -59,7 +60,7 @@ void CXPlayer::Update()
 		if (my < mMouseY)
 		{
 			//マウスの移動量の分だけ回転
-			mRotation.mX += (mMouseY - my) / mMouseSensitivity;
+			mRotation.mX -= (mMouseY - my) / mMouseSensitivity;
 		}
 	}
 	//カメラの向きが真下でなければ
@@ -68,7 +69,7 @@ void CXPlayer::Update()
 		if (mMouseY < my)
 		{
 			//マウスの移動量の分だけ回転
-			mRotation.mX += (mMouseY - my) / mMouseSensitivity;
+			mRotation.mX -= (mMouseY - my) / mMouseSensitivity;
 		}
 	}
 
@@ -163,6 +164,9 @@ void CXPlayer::Update()
 		delete this;
 	}
 
+	mPosition = CVector(0.0f, 2.0f, 0.0f);
+	CXCharacter::Update();
+
 	mWeaponTag = EHANDGUN;
 	//使っている武器のUpdateをよぶ
 	if (CCharacter::mWeaponTag == EHANDGUN)
@@ -181,8 +185,6 @@ void CXPlayer::Update()
 	{
 
 	}
-	mPosition=CVector(0.0f, 2.0f, 0.0f);
-	CXCharacter::Update();
 }
 
 //衝突判定

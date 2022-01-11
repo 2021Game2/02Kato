@@ -62,6 +62,7 @@ public:
 	CAnimationSet();
 	CAnimationSet(CModelX* model);
 
+
 	~CAnimationSet() {
 		SAFE_DELETE_ARRAY(mpName);
 		//アニメーション要素の削除

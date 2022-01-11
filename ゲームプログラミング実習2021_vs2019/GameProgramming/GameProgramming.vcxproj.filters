@@ -162,6 +162,9 @@
     <ClCompile Include="CGun.cpp">
       <Filter>ソース ファイル\weapon</Filter>
     </ClCompile>
+    <ClCompile Include="CCrossHair.cpp">
+      <Filter>ソース ファイル\1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSceneGame.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="CGun.h">
       <Filter>ソース ファイル\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CCrossHair.h">
+      <Filter>ソース ファイル\1</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
