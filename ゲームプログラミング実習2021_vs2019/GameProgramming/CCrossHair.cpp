@@ -1,4 +1,5 @@
 #include "CCrossHair.h"
+#include <math.h>
 
 CCrossHair::CCrossHair()
 :mCrossHairColor(0.0f),mCrossHairLength(0.0f),mCrossHairRange(0.0f)
@@ -8,6 +9,7 @@ CCrossHair::CCrossHair()
 }
 
 void CCrossHair::Render()
-{
+{   
 
 }
+

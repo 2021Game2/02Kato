@@ -211,7 +211,10 @@ public:
 	CModelX()
 		: mpPointer(nullptr)
 		, mpSkinningMatrix(nullptr)
-	{}
+	{
+		//for (int i = 0; 0 < 1025; i++) {
+			//mToken[i] = 0;
+     }
 
 	~CModelX() {
 		if (mFrame.size() > 0)

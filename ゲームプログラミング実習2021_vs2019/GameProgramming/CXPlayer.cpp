@@ -24,7 +24,6 @@ CXPlayer::CXPlayer()
 void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
-	Sleep(2000);
 }
 
 void CXPlayer::Update()

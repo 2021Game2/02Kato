@@ -14,7 +14,7 @@ public:
 	float mCrossHairLength;
 	//ü‚Ì•
 	float mCrossHairWidth;
-	//ü‚ÌˆÊ’u
+	//“_‚©‚çŒ©‚½ü‚ÌˆÊ’u
 	float mCrossHairRange;
 
 	CCrossHair();
